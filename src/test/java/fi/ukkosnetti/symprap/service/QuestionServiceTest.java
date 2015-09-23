@@ -1,6 +1,8 @@
 package fi.ukkosnetti.symprap.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.model.AnswerType;
@@ -25,6 +28,9 @@ public class QuestionServiceTest {
 
 	@Mock
 	private QuestionRepository repo;
+	
+	@Mock
+	private LombokMapper mapper;
 	
 	@InjectMocks
 	private QuestionService service;
@@ -38,6 +44,7 @@ public class QuestionServiceTest {
 	
 	@Test
 	public void createsQuestion() {
+		when(mapper.convertValue(any(), eq(Question.class))).thenReturn(new Question());
 		service.createQuestion(new QuestionCreate("who are you?", AnswerType.TEXT));
 		verify(repo).save(isA(Question.class));
 	}

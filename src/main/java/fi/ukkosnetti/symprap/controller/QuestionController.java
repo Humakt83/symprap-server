@@ -16,6 +16,7 @@ import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.service.QuestionService;
 
 @RestController
+@RequestMapping(value = "/question")
 public class QuestionController {
 
 	@Autowired
@@ -26,8 +27,8 @@ public class QuestionController {
 		return service.getQuestions();
     }
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-	public void create(@RequestBody QuestionCreate question) {
-		service.createQuestion(question);
+	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody QuestionGet create(@RequestBody QuestionCreate question) {
+		return service.createQuestion(question);
 	}
 }
