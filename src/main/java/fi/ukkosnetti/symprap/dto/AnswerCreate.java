@@ -9,15 +9,18 @@ public @Data class AnswerCreate {
 
 	private final Long questionId;
 	
+	private final Long userId;
+	
 	private final String answer;
 
-	public AnswerCreate(Long question, String answer) {
+	public AnswerCreate(Long question, String answer, Long userId) {
 		this.questionId = question;
 		this.answer = answer;
+		this.userId = userId;
 	}
 	
 	@SuppressWarnings("unused")
 	private AnswerCreate() {
-		this(null, null);
+		this(null, null, null);
 	}
 }

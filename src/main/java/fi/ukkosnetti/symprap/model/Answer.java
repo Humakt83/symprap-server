@@ -36,6 +36,11 @@ public class Answer {
 	@Getter
 	private Date created;
 	
+	@ManyToOne
+	@Getter
+	@Setter
+	private User user;
+	
 	@PrePersist
 	private void setCreated() {
 		created = new Date();

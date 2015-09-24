@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -16,9 +17,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @ToString 
-@EqualsAndHashCode 
+@EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Question {
 
 	@Id
@@ -40,6 +44,11 @@ public class Question {
 	
 	@Getter
 	private Date updated;	
+	
+	@ManyToOne
+	@Getter
+	@Setter
+	private Symptom symptom;
 	
 	@PrePersist
 	private void setCreated() {

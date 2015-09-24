@@ -45,7 +45,7 @@ public class AnswerControllerTest {
 	@Test
 	public void insertsAnAnswerToQuestion() throws Exception {
 		given().contentType(MediaType.APPLICATION_JSON)
-			.body(new AnswerCreate(questionId, "This is answer"))
+			.body(new AnswerCreate(questionId, "This is answer", 7l))
 			.post("/answer/create")
 			.then()
 			.statusCode(Status.OK.getStatusCode());
@@ -64,7 +64,7 @@ public class AnswerControllerTest {
 	
 	private void insertQuestion() {
 		questionId = Long.parseLong(given().contentType(MediaType.APPLICATION_JSON)
-			.body(new QuestionCreate("Is this a question?", AnswerType.TEXT))
+			.body(new QuestionCreate("Is this a question?", AnswerType.TEXT, 5l))
 			.post("/question/create")
 			.then()
 			.extract()
