@@ -65,7 +65,7 @@ public class QuestionControllerTest {
 	
 	private Long insertSymptom() {
 		return given().contentType(MediaType.APPLICATION_JSON)
-			.body(new SymptomCreate("diabetes"))
+			.body(new SymptomCreate("flu"))
 			.post("/symptom/create")
 			.then().extract().as(SymptomGet.class).getId();
 	}
