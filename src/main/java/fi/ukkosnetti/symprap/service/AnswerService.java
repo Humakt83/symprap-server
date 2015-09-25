@@ -14,8 +14,10 @@ import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.model.Answer;
 import fi.ukkosnetti.symprap.model.AnswerType;
 import fi.ukkosnetti.symprap.model.Question;
+import fi.ukkosnetti.symprap.model.User;
 import fi.ukkosnetti.symprap.repository.AnswerRepository;
 import fi.ukkosnetti.symprap.repository.QuestionRepository;
+import fi.ukkosnetti.symprap.repository.UserRepository;
 
 @Service
 public class AnswerService {
@@ -25,6 +27,9 @@ public class AnswerService {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private LombokMapper mapper;
@@ -43,7 +48,12 @@ public class AnswerService {
 		Answer entity = new Answer();
 		entity.setQuestion(question);
 		entity.setAnswer(answer.getAnswer());
+		setUser(userRepository.findOne(answer.getUserId()), entity);
 		repository.save(entity);
+	}
+
+	private void setUser(@NonNull User user, Answer entity) {
+		entity.setUser(user);
 	}
 
 	private void verifyAnswer(@NonNull AnswerType answerType, @NonNull String answer) {

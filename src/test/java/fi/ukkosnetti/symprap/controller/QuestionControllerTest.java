@@ -29,7 +29,7 @@ import fi.ukkosnetti.symprap.model.AnswerType;
 @SpringApplicationConfiguration(classes = SymprapApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port:0",
-        "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=FALSE"})
+        "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=TRUE"})
 public class QuestionControllerTest {
 
 	private static final String QUESTION = "Is this a question?";

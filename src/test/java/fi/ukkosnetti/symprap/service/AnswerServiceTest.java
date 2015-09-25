@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,14 +24,19 @@ import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.model.Answer;
 import fi.ukkosnetti.symprap.model.AnswerType;
 import fi.ukkosnetti.symprap.model.Question;
+import fi.ukkosnetti.symprap.model.User;
 import fi.ukkosnetti.symprap.repository.AnswerRepository;
 import fi.ukkosnetti.symprap.repository.QuestionRepository;
+import fi.ukkosnetti.symprap.repository.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AnswerServiceTest {
 
 	@Mock
 	private AnswerRepository repository;
+	
+	@Mock
+	private UserRepository userRepository;
 	
 	@Mock
 	private QuestionRepository questionRepository;
@@ -40,6 +46,11 @@ public class AnswerServiceTest {
 	
 	@InjectMocks
 	private AnswerService service;
+	
+	@Before
+	public void init() {
+		when(userRepository.findOne(any())).thenReturn(new User());
+	}
 	
 	@Test
 	public void returnsAllAnswersForQuestion() {
@@ -93,6 +104,12 @@ public class AnswerServiceTest {
 	public void createsAnswerOfTypeDouble() {
 		service.createAnswer(givenAnswer(AnswerType.DOUBLE, "12.34"));
 		verify(repository).save(isA(Answer.class));
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void userMustExistForAnswerToBeCreated() {
+		when(userRepository.findOne(any())).thenReturn(null);
+		service.createAnswer(givenAnswer(AnswerType.DOUBLE, "12.34"));
 	}
 	
 	private AnswerCreate givenAnswer(AnswerType answerType, String answer) {
