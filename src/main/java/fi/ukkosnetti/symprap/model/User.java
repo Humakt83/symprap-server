@@ -1,6 +1,7 @@
 package fi.ukkosnetti.symprap.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -51,7 +52,15 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Getter
 	@Setter
-	private Set<Symptom> symptoms;
+	private Set<Symptom> symptoms = new HashSet<>();
+	
+	public void addSymptom(Symptom symptom) {
+		symptoms.add(symptom);
+	}
+	
+	public void removeSymptom(Symptom symptom) {
+		symptoms.remove(symptom);
+	}
 	
 	
 }

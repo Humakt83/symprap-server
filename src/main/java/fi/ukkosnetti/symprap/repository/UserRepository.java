@@ -6,4 +6,5 @@ import fi.ukkosnetti.symprap.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
+	User getUserByUserName(String userName);
 }
