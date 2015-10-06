@@ -1,5 +1,7 @@
 package fi.ukkosnetti.symprap.controller;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,10 @@ public class SymptomController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody SymptomGet create(@RequestBody SymptomCreate symptom) {
 		return service.createSymptom(symptom);
+	}
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<SymptomGet> getAll() {
+		return service.getSymptoms();
 	}
 }
