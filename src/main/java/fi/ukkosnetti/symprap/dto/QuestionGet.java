@@ -14,5 +14,7 @@ public @Data class QuestionGet {
 	private final String question;
 	
 	private final AnswerType answerType;
+	
+	private final Long symptomId;
 
 }

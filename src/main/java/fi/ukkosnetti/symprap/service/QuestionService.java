@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
+import fi.ukkosnetti.symprap.dto.QuestionUpdate;
 import fi.ukkosnetti.symprap.model.Question;
 import fi.ukkosnetti.symprap.model.Symptom;
 import fi.ukkosnetti.symprap.repository.QuestionRepository;
@@ -41,7 +42,20 @@ public class QuestionService {
 				.collect(Collectors.toList());
 	}
 	
+	public QuestionGet getQuestion(Long id) {
+		Question question = repository.findOne(id);
+		return mapper.convertValue(question, QuestionGet.class);
+	}
+	
 	public QuestionGet createQuestion(QuestionCreate question) {
+		Symptom symptom = symptomRepository.findOne(question.getSymptomId());
+		Question entity = mapper.convertValue(question, Question.class);
+		entity.setSymptom(symptom);
+		entity = repository.save(entity);
+		return mapper.convertValue(entity, QuestionGet.class);
+	}
+	
+	public QuestionGet updateQuestion(QuestionUpdate question) {
 		Symptom symptom = symptomRepository.findOne(question.getSymptomId());
 		Question entity = mapper.convertValue(question, Question.class);
 		entity.setSymptom(symptom);

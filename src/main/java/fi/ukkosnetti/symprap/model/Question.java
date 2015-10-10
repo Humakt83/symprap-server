@@ -18,6 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @ToString 
@@ -58,6 +59,11 @@ public class Question {
 	@PreUpdate
 	private void setUpdated() {
 		updated = new Date();
+	}
+	
+	@JsonProperty("symptomId")
+	public Long getSymptomId() {
+		return symptom != null ? symptom.getId() : null;
 	}
 	
 }
