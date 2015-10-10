@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
+import fi.ukkosnetti.symprap.dto.UserUpdate;
 import fi.ukkosnetti.symprap.service.UserService;
 
 @RestController
@@ -28,9 +29,19 @@ public class UserController {
 		return service.createUser(user);
 	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody UserGet update(@RequestBody UserUpdate user) {
+		return service.updateUser(user);
+	}
+	
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<UserGet> allUsers() {
 		return service.getUsers();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody UserGet getUser(@PathVariable("id") Long id) {
+		return service.getUser(id);
 	}
 	
 	@RequestMapping(value = "/login/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)

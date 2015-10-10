@@ -1,22 +1,28 @@
 package fi.ukkosnetti.symprap.dto;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.ToString;
+import fi.ukkosnetti.symprap.model.UserRole;
 
 @ToString
-public class SymptomUpdate extends SymptomCreate {
+public class UserUpdate extends UserCreate {
 	
 	@Getter
 	private final Long id;
 	
-	public SymptomUpdate(Long id, String symptom) {
-		super(symptom);
+	public UserUpdate(String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles,
+			List<SymptomGet> symptoms, Long id) {
+		super(userName, firstName, lastName, dateOfBirth, medicalRecordNumber, userRoles, symptoms);
 		this.id = id;
 	}
-	
+
 	@SuppressWarnings("unused")
-	private SymptomUpdate() {
-		this(null, null);
+	private UserUpdate() {
+		this(null, null, null, null, null, new ArrayList<>(), new ArrayList<>(), null);
 	}
 
 	@Override
@@ -35,7 +41,7 @@ public class SymptomUpdate extends SymptomCreate {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SymptomUpdate other = (SymptomUpdate) obj;
+		UserUpdate other = (UserUpdate) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -43,5 +49,5 @@ public class SymptomUpdate extends SymptomCreate {
 			return false;
 		return true;
 	}
-
+	
 }

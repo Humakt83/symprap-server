@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
+import fi.ukkosnetti.symprap.dto.UserUpdate;
 import fi.ukkosnetti.symprap.model.User;
 import fi.ukkosnetti.symprap.repository.SymptomRepository;
 import fi.ukkosnetti.symprap.repository.UserRepository;
@@ -30,13 +31,22 @@ public class UserService {
 		return mapper.convertValue(entity, UserGet.class);
 	}
 	
+	public UserGet updateUser(UserUpdate user) {
+		User entity = repository.save(mapper.convertValue(user, User.class));
+		return mapper.convertValue(entity, UserGet.class);
+	}
+	
 	public List<UserGet> getUsers() {
 		List<UserGet> users = new ArrayList<>();
 		repository.findAll().forEach(user -> users.add(mapper.convertValue(user, UserGet.class)));
 		return users;
 	}
-
-	//Most likely a temporary method
+	
+	public UserGet getUser(Long id) {
+		User user = repository.findOne(id);
+		return mapper.convertValue(user, UserGet.class);
+	}
+	
 	public UserGet getUser(String userName) {
 		User user = repository.getUserByUserName(userName);
 		return mapper.convertValue(user, UserGet.class);
