@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.ukkosnetti.symprap.dto.SymptomCreate;
 import fi.ukkosnetti.symprap.dto.SymptomGet;
+import fi.ukkosnetti.symprap.dto.SymptomUpdate;
 import fi.ukkosnetti.symprap.service.SymptomService;
 
 @RestController
@@ -31,6 +32,11 @@ public class SymptomController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody SymptomGet create(@RequestBody SymptomCreate symptom) {
 		return service.createSymptom(symptom);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody SymptomGet create(@RequestBody SymptomUpdate symptom) {
+		return service.updateSymptom(symptom);
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)

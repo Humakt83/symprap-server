@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.SymptomCreate;
 import fi.ukkosnetti.symprap.dto.SymptomGet;
+import fi.ukkosnetti.symprap.dto.SymptomUpdate;
 import fi.ukkosnetti.symprap.model.Symptom;
 import fi.ukkosnetti.symprap.repository.SymptomRepository;
 
@@ -26,6 +27,11 @@ public class SymptomService {
 	}
 	
 	public SymptomGet createSymptom(SymptomCreate symptom) {
+		Symptom entity = repository.save(mapper.convertValue(symptom, Symptom.class));
+		return mapper.convertValue(entity, SymptomGet.class);
+	}
+	
+	public SymptomGet updateSymptom(SymptomUpdate symptom) {
 		Symptom entity = repository.save(mapper.convertValue(symptom, Symptom.class));
 		return mapper.convertValue(entity, SymptomGet.class);
 	}
