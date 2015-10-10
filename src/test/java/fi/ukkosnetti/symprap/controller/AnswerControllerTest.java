@@ -3,6 +3,7 @@ package fi.ukkosnetti.symprap.controller;
 import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.model.AnswerType;
+import fi.ukkosnetti.symprap.model.UserRole;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SymprapApplication.class)
@@ -79,7 +81,7 @@ public class AnswerControllerTest {
 	
 	private Long insertUser() {
 		return given().contentType(MediaType.APPLICATION_JSON)
-		.body(new UserCreate("tomDil", "Tom", "Bombadil", new Date(0), 2312321l))
+		.body(new UserCreate("tomDil", "Tom", "Bombadil", new Date(0), 2312321l, Arrays.asList(UserRole.TEEN), null))
 		.post("/user/create")
 		.then()
 		.extract()

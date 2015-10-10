@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,13 +57,11 @@ public class User {
 	@Setter
 	private Set<Symptom> symptoms = new HashSet<>();
 	
-	public void addSymptom(Symptom symptom) {
-		symptoms.add(symptom);
-	}
-	
-	public void removeSymptom(Symptom symptom) {
-		symptoms.remove(symptom);
-	}
+	@ElementCollection
+	@Enumerated(EnumType.STRING)
+	@Getter
+	@Setter
+	private Set<UserRole> roles = new HashSet<>();
 	
 	
 }

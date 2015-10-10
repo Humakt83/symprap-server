@@ -1,10 +1,14 @@
 package fi.ukkosnetti.symprap.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import fi.ukkosnetti.symprap.model.UserRole;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public @Data class UserCreate {
@@ -18,19 +22,25 @@ public @Data class UserCreate {
 	private final Date dateOfBirth;
 	
 	private final Long medicalRecordNumber;
+	
+	private final List<UserRole> roles;
+	
+	private final List<SymptomGet> symptoms;
 
-	public UserCreate(String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber) {
+	public UserCreate(String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles, List<SymptomGet> symptoms) {
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
 		this.medicalRecordNumber = medicalRecordNumber;
+		this.roles = userRoles;
+		this.symptoms = symptoms;
 	}
 	
 	
 	@SuppressWarnings("unused")
 	private UserCreate() {
-		this(null, null, null, null, null);
+		this(null, null, null, null, null, new ArrayList<>(), new ArrayList<>());
 	}
 	
 	

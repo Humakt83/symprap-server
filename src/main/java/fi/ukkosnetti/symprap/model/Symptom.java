@@ -36,8 +36,9 @@ public class Symptom {
 	@JsonIgnore
 	private Set<Question> questions;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "symptoms")
 	@Getter
 	@Setter
+	@JsonIgnore
 	private Set<User> users;
 }
