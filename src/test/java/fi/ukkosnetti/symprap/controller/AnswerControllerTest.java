@@ -81,7 +81,7 @@ public class AnswerControllerTest {
 	
 	private Long insertUser() {
 		return given().contentType(MediaType.APPLICATION_JSON)
-		.body(new UserCreate("tomDil", "Tom", "Bombadil", new Date(0), 2312321l, Arrays.asList(UserRole.TEEN), null))
+		.body(new UserCreate("tomDil", "pass", "Tom", "Bombadil", new Date(0), 2312321l, Arrays.asList(UserRole.TEEN), null))
 		.post("/user/create")
 		.then()
 		.extract()

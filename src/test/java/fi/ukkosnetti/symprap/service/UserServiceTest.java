@@ -44,7 +44,7 @@ public class UserServiceTest {
 		when(repo.save(any(User.class))).thenReturn(new User());
 		when(mapper.convertValue(any(UserCreate.class), eq(User.class))).thenReturn(new User());
 		when(mapper.convertValue(any(User.class), eq(UserGet.class))).thenReturn(Mockito.mock(UserGet.class));
-		UserGet user = service.createUser(new UserCreate("testUser", "Tom", "Bombadil", new Date(0), 321424412l, null, null));
+		UserGet user = service.createUser(new UserCreate("testUser", "pass", "Tom", "Bombadil", new Date(0), 321424412l, null, null));
 		assertNotNull(user);
 	}
 	

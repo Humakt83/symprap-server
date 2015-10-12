@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import fi.ukkosnetti.symprap.auth.SymprapUserDetails;
 import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
@@ -15,7 +20,7 @@ import fi.ukkosnetti.symprap.repository.SymptomRepository;
 import fi.ukkosnetti.symprap.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserRepository repository;
@@ -28,6 +33,8 @@ public class UserService {
 	
 	public UserGet createUser(UserCreate user) {
 		User entity = repository.save(mapper.convertValue(user, User.class));
+		String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+	    entity.setPassword(hashed);
 		return mapper.convertValue(entity, UserGet.class);
 	}
 	
@@ -47,9 +54,15 @@ public class UserService {
 		return mapper.convertValue(user, UserGet.class);
 	}
 	
-	public UserGet getUser(String userName) {
+	public UserGet getUserByUserName(String userName) {
 		User user = repository.getUserByUserName(userName);
 		return mapper.convertValue(user, UserGet.class);
+	}
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = repository.getUserByUserName(username);
+		return new SymprapUserDetails(user.getUserName(), user.getPassword(), user.getRoles());
 	}
 	
 }

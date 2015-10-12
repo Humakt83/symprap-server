@@ -14,15 +14,15 @@ public class UserUpdate extends UserCreate {
 	@Getter
 	private final Long id;
 	
-	public UserUpdate(String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles,
+	public UserUpdate(String userName, String password, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles,
 			List<SymptomGet> symptoms, Long id) {
-		super(userName, firstName, lastName, dateOfBirth, medicalRecordNumber, userRoles, symptoms);
+		super(userName, password, firstName, lastName, dateOfBirth, medicalRecordNumber, userRoles, symptoms);
 		this.id = id;
 	}
 
 	@SuppressWarnings("unused")
 	private UserUpdate() {
-		this(null, null, null, null, null, new ArrayList<>(), new ArrayList<>(), null);
+		this(null, null, null, null, null, null, new ArrayList<>(), new ArrayList<>(), null);
 	}
 
 	@Override

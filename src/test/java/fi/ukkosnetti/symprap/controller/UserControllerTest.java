@@ -46,7 +46,7 @@ public class UserControllerTest {
 	public void createsUser() throws Exception {
 		final String userName = "todDil", firstName = "Tom", lastName = "Bombadil";
 		given().contentType(MediaType.APPLICATION_JSON)
-			.body(new UserCreate(userName, firstName, lastName, new Date(0), 2312312l, Arrays.asList(UserRole.TEEN), Arrays.asList(insertSymptom())))
+			.body(new UserCreate(userName, "pass", firstName, lastName, new Date(0), 2312312l, Arrays.asList(UserRole.TEEN), Arrays.asList(insertSymptom())))
 			.post("/user/create")
 			.then()
 			.statusCode(Status.OK.getStatusCode())

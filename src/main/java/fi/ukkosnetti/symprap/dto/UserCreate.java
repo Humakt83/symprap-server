@@ -15,6 +15,8 @@ public @Data class UserCreate {
 
 	private final String userName;
 	
+	private final String password;
+	
 	private final String firstName;
 	
 	private final String lastName;
@@ -27,7 +29,7 @@ public @Data class UserCreate {
 	
 	private final List<SymptomGet> symptoms;
 
-	public UserCreate(String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles, List<SymptomGet> symptoms) {
+	public UserCreate(String userName, String password, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles, List<SymptomGet> symptoms) {
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -35,12 +37,13 @@ public @Data class UserCreate {
 		this.medicalRecordNumber = medicalRecordNumber;
 		this.roles = userRoles;
 		this.symptoms = symptoms;
+		this.password = password;
 	}
 	
 	
 	@SuppressWarnings("unused")
 	private UserCreate() {
-		this(null, null, null, null, null, new ArrayList<>(), new ArrayList<>());
+		this(null, null, null, null, null, null, new ArrayList<>(), new ArrayList<>());
 	}
 	
 	

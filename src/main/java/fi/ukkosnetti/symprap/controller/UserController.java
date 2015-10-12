@@ -44,10 +44,10 @@ public class UserController {
 		return service.getUser(id);
 	}
 	
-	@RequestMapping(value = "/login/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody UserGet login(@PathVariable("username") String userName) {
 		//TODO: Implement proper login once OAUTH2 is in place"
-		return service.getUser(userName);
+		return service.getUserByUserName(userName);
 	}
 	
 }
