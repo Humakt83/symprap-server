@@ -15,14 +15,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @ToString 
-@EqualsAndHashCode 
 public class User {
 
 	@Id
@@ -35,6 +36,7 @@ public class User {
 	@Setter
 	private String userName;
 	
+	@Column(length = 100)
 	@Getter
 	@Setter
 	private String password;
@@ -65,6 +67,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@Getter
 	@Setter
+	@Fetch(FetchMode.JOIN)
 	private Set<UserRole> roles = new HashSet<>();
 	
 	

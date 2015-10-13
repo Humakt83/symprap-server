@@ -17,10 +17,9 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -54,27 +53,29 @@ import fi.ukkosnetti.symprap.service.UserService;
  */
 @Configuration
 public class OAuth2SecurityConfiguration {
-
-	// This first section of the configuration just makes sure that Spring Security picks
-	// up the UserDetailsService that we create below. 
-	@Configuration
-	@EnableWebSecurity
-	protected static class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-		
-		@Autowired
-		private UserService userDetailsService;
-		
-		@Override
-	    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-			
-			try {
-				userDetailsService.createUser(new UserCreate("adm", "admin", "Super", "User", null, null, Arrays.asList(UserRole.ADMIN), null));				
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-	        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-	    }
+	
+	@Autowired
+	private UserService userDetailsService;
+	
+	
+	@Bean
+	public AuthenticationManager authenticationManager() {
+		try {
+			userDetailsService.createUser(new UserCreate("adm", "admin", "Super", "User", null, null, Arrays.asList(UserRole.ADMIN), null));				
+			return new AuthenticationManagerBuilder(new NopPostProcessor()).userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder()).and().build();
+		} catch (Exception e) {
+			System.out.println(e);
+			throw new RuntimeException(e);
+		}
 	}
+	
+   private static class NopPostProcessor implements ObjectPostProcessor {
+        @Override
+        @SuppressWarnings("unchecked")
+        public Object postProcess(Object object) {
+            return object;
+        }
+    };
 	
 	@Configuration
 	@EnableResourceServer
@@ -101,14 +102,18 @@ public class OAuth2SecurityConfiguration {
 			http.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/answer/**")
 				.access("#oauth2.hasScope('read')")
+				.anyRequest()
+				.fullyAuthenticated()
 				.and()
 				.authorizeRequests()
 				.antMatchers("/answer/**")
 				.access("#oauth2.hasScope('write')")
+				.anyRequest()
+				.fullyAuthenticated()
 				.and()
 				.authorizeRequests()
 				.antMatchers("/user/**", "/symptom/**", "/question/**")
-				.anonymous();
+				.permitAll();
 		}
 
 	}
@@ -142,7 +147,7 @@ public class OAuth2SecurityConfiguration {
 			        // video service
 					.withClient("mobile").authorizedGrantTypes("password")
 					.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-					.scopes("read","write").resourceIds("video")
+					.scopes("read","write")
 					.accessTokenValiditySeconds(3600).and().build();
 
 		}

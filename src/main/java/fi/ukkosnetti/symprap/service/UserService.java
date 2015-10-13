@@ -32,9 +32,10 @@ public class UserService implements UserDetailsService {
 	private LombokMapper mapper;
 	
 	public UserGet createUser(UserCreate user) {
-		User entity = repository.save(mapper.convertValue(user, User.class));
 		String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-	    entity.setPassword(hashed);
+		User entity = mapper.convertValue(user, User.class);
+		entity.setPassword(hashed);
+		repository.save(entity);
 		return mapper.convertValue(entity, UserGet.class);
 	}
 	
