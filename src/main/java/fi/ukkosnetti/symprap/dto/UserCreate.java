@@ -27,16 +27,16 @@ public @Data class UserCreate {
 	
 	private final List<UserRole> roles;
 	
-	private final List<SymptomGet> symptoms;
+	private final List<DiseaseGet> diseases;
 
-	public UserCreate(String userName, String password, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles, List<SymptomGet> symptoms) {
+	public UserCreate(String userName, String password, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles, List<DiseaseGet> diseases) {
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
 		this.medicalRecordNumber = medicalRecordNumber;
 		this.roles = userRoles;
-		this.symptoms = symptoms;
+		this.diseases = diseases;
 		this.password = password;
 	}
 	

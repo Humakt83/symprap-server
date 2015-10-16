@@ -26,9 +26,9 @@ public @Data class UserGet {
 	
 	private final List<UserRole> roles;
 	
-	private final List<SymptomGet> symptoms;
+	private final List<DiseaseGet> diseases;
 
-	public UserGet(Long id, String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> roles, List<SymptomGet> symptoms) {
+	public UserGet(Long id, String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> roles, List<DiseaseGet> diseases) {
 		this.id = id;
 		this.userName = userName;
 		this.firstName = firstName;
@@ -36,7 +36,7 @@ public @Data class UserGet {
 		this.dateOfBirth = dateOfBirth;
 		this.medicalRecordNumber = medicalRecordNumber;
 		this.roles = roles;
-		this.symptoms = symptoms;
+		this.diseases = diseases;
 	}
 	
 	@SuppressWarnings("unused")

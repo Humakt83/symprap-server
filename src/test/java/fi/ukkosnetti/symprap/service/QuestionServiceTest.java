@@ -21,10 +21,10 @@ import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.model.AnswerType;
+import fi.ukkosnetti.symprap.model.Disease;
 import fi.ukkosnetti.symprap.model.Question;
-import fi.ukkosnetti.symprap.model.Symptom;
+import fi.ukkosnetti.symprap.repository.DiseaseRepository;
 import fi.ukkosnetti.symprap.repository.QuestionRepository;
-import fi.ukkosnetti.symprap.repository.SymptomRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionServiceTest {
@@ -33,7 +33,7 @@ public class QuestionServiceTest {
 	private QuestionRepository repo;
 	
 	@Mock
-	private SymptomRepository symptomRepo;
+	private DiseaseRepository diseaseRepo;
 	
 	@Mock
 	private LombokMapper mapper;
@@ -43,7 +43,7 @@ public class QuestionServiceTest {
 	
 	@Before
 	public void init() {
-		when(symptomRepo.findOne(any())).thenReturn(new Symptom());
+		when(diseaseRepo.findOne(any())).thenReturn(new Disease());
 	}
 	
 	@Test
@@ -54,9 +54,9 @@ public class QuestionServiceTest {
 	}
 	
 	@Test
-	public void returnsQuestionsForSymptom() {
-		when(repo.findBySymptom(isA(Symptom.class))).thenReturn(Arrays.asList(new Question(), new Question(), new Question()));
-		List<QuestionGet> questions = service.getQuestionsForSymptom(53l);
+	public void returnsQuestionsForDisease() {
+		when(repo.findByDisease(isA(Disease.class))).thenReturn(Arrays.asList(new Question(), new Question(), new Question()));
+		List<QuestionGet> questions = service.getQuestionsForDisease(53l);
 		assertEquals(3, questions.size());
 	}
 	

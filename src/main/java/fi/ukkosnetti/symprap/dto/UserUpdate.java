@@ -15,8 +15,8 @@ public class UserUpdate extends UserCreate {
 	private final Long id;
 	
 	public UserUpdate(String userName, String password, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles,
-			List<SymptomGet> symptoms, Long id) {
-		super(userName, password, firstName, lastName, dateOfBirth, medicalRecordNumber, userRoles, symptoms);
+			List<DiseaseGet> diseases, Long id) {
+		super(userName, password, firstName, lastName, dateOfBirth, medicalRecordNumber, userRoles, diseases);
 		this.id = id;
 	}
 

@@ -49,7 +49,7 @@ public class Question {
 	@ManyToOne
 	@Getter
 	@Setter
-	private Symptom symptom;
+	private Disease disease;
 	
 	@PrePersist
 	private void setCreated() {
@@ -61,9 +61,9 @@ public class Question {
 		updated = new Date();
 	}
 	
-	@JsonProperty("symptomId")
-	public Long getSymptomId() {
-		return symptom != null ? symptom.getId() : null;
+	@JsonProperty("diseaseId")
+	public Long getDiseaseId() {
+		return disease != null ? disease.getId() : null;
 	}
 	
 }

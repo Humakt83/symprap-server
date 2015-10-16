@@ -5,19 +5,19 @@ import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public @Data class SymptomGet {
+public @Data class DiseaseGet {
 
 	private final Long id;
 	
-	private final String symptom;
+	private final String disease;
 	
-	public SymptomGet(Long id, String symptom) {
+	public DiseaseGet(Long id, String disease) {
 		this.id = id;
-		this.symptom = symptom;
+		this.disease = disease;
 	}
 	
 	@SuppressWarnings("unused")
-	private SymptomGet() {
+	private DiseaseGet() {
 		this(null, null);
 	}
 }

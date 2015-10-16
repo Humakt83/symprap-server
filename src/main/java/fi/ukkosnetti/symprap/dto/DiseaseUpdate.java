@@ -4,18 +4,18 @@ import lombok.Getter;
 import lombok.ToString;
 
 @ToString
-public class SymptomUpdate extends SymptomCreate {
+public class DiseaseUpdate extends DiseaseCreate {
 	
 	@Getter
 	private final Long id;
 	
-	public SymptomUpdate(Long id, String symptom) {
-		super(symptom);
+	public DiseaseUpdate(Long id, String disease) {
+		super(disease);
 		this.id = id;
 	}
 	
 	@SuppressWarnings("unused")
-	private SymptomUpdate() {
+	private DiseaseUpdate() {
 		this(null, null);
 	}
 
@@ -35,7 +35,7 @@ public class SymptomUpdate extends SymptomCreate {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SymptomUpdate other = (SymptomUpdate) obj;
+		DiseaseUpdate other = (DiseaseUpdate) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

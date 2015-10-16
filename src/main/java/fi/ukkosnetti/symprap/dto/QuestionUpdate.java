@@ -10,8 +10,8 @@ public class QuestionUpdate extends QuestionCreate {
 	@Getter
 	private final Long id;
 
-	public QuestionUpdate(String question, AnswerType answerType, Long symptomId, Long id) {
-		super(question, answerType, symptomId);
+	public QuestionUpdate(String question, AnswerType answerType, Long diseaseId, Long id) {
+		super(question, answerType, diseaseId);
 		this.id = id;
 	}
 	

@@ -18,7 +18,7 @@ import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Symptom {
+public class Disease {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,15 +28,15 @@ public class Symptom {
 	@Column(unique = true, nullable = false)
 	@Getter
 	@Setter
-	private String symptom;
+	private String disease;
 	
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "symptom", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "disease", fetch = FetchType.LAZY)
 	@Getter
 	@Setter
 	@JsonIgnore
 	private Set<Question> questions;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "symptoms")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "diseases")
 	@Getter
 	@Setter
 	@JsonIgnore

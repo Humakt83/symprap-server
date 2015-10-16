@@ -46,7 +46,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/byusername/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody UserGet getUserByUserName(@PathVariable("username") String userName) {
-		//TODO: Implement proper login once OAUTH2 is in place"
 		return service.getUserByUserName(userName);
 	}
 	

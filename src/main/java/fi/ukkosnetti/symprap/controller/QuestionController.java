@@ -29,9 +29,9 @@ public class QuestionController {
 		return service.getQuestions();
     }
 	
-	@RequestMapping(value = "/forsymptom/{symptomid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<QuestionGet> getAllForSymptom(@PathVariable("symptomid") Long symptomId) {
-		return service.getQuestionsForSymptom(symptomId);
+	@RequestMapping(value = "/fordisease/{diseaseid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<QuestionGet> getAllForDisease(@PathVariable("diseaseid") Long diseaseId) {
+		return service.getQuestionsForDisease(diseaseId);
     }
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)

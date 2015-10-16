@@ -61,7 +61,7 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Getter
 	@Setter
-	private Set<Symptom> symptoms = new HashSet<>();
+	private Set<Disease> diseases = new HashSet<>();
 	
 	@ElementCollection
 	@Enumerated(EnumType.STRING)

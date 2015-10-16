@@ -11,10 +11,10 @@ import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.dto.QuestionUpdate;
+import fi.ukkosnetti.symprap.model.Disease;
 import fi.ukkosnetti.symprap.model.Question;
-import fi.ukkosnetti.symprap.model.Symptom;
+import fi.ukkosnetti.symprap.repository.DiseaseRepository;
 import fi.ukkosnetti.symprap.repository.QuestionRepository;
-import fi.ukkosnetti.symprap.repository.SymptomRepository;
 
 @Service
 public class QuestionService {
@@ -23,7 +23,7 @@ public class QuestionService {
 	private QuestionRepository repository;
 	
 	@Autowired
-	private SymptomRepository symptomRepository;
+	private DiseaseRepository diseaseRepository;
 	
 	@Autowired
 	private LombokMapper mapper;
@@ -34,9 +34,9 @@ public class QuestionService {
 		return questions;
 	}
 	
-	public List<QuestionGet> getQuestionsForSymptom(Long symptomId) {
-		Symptom symptom = symptomRepository.findOne(symptomId);
-		return repository.findBySymptom(symptom)
+	public List<QuestionGet> getQuestionsForDisease(Long diseaseId) {
+		Disease disease = diseaseRepository.findOne(diseaseId);
+		return repository.findByDisease(disease)
 				.stream()
 				.map(question -> mapper.convertValue(question, QuestionGet.class))
 				.collect(Collectors.toList());
@@ -48,17 +48,17 @@ public class QuestionService {
 	}
 	
 	public QuestionGet createQuestion(QuestionCreate question) {
-		Symptom symptom = symptomRepository.findOne(question.getSymptomId());
+		Disease disease = diseaseRepository.findOne(question.getDiseaseId());
 		Question entity = mapper.convertValue(question, Question.class);
-		entity.setSymptom(symptom);
+		entity.setDisease(disease);
 		entity = repository.save(entity);
 		return mapper.convertValue(entity, QuestionGet.class);
 	}
 	
 	public QuestionGet updateQuestion(QuestionUpdate question) {
-		Symptom symptom = symptomRepository.findOne(question.getSymptomId());
+		Disease disease = diseaseRepository.findOne(question.getDiseaseId());
 		Question entity = mapper.convertValue(question, Question.class);
-		entity.setSymptom(symptom);
+		entity.setDisease(disease);
 		entity = repository.save(entity);
 		return mapper.convertValue(entity, QuestionGet.class);
 	}

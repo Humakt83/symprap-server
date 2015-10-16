@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.ukkosnetti.symprap.dto.SymptomCreate;
-import fi.ukkosnetti.symprap.dto.SymptomGet;
-import fi.ukkosnetti.symprap.dto.SymptomUpdate;
-import fi.ukkosnetti.symprap.service.SymptomService;
+import fi.ukkosnetti.symprap.dto.DiseaseCreate;
+import fi.ukkosnetti.symprap.dto.DiseaseGet;
+import fi.ukkosnetti.symprap.dto.DiseaseUpdate;
+import fi.ukkosnetti.symprap.service.DiseaseService;
 
 @RestController
-@RequestMapping(value = "/symptom")
-public class SymptomController {
+@RequestMapping(value = "/disease")
+public class DiseaseController {
 
 	@Autowired
-	private SymptomService service;
+	private DiseaseService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody SymptomGet getSymptom(@PathVariable("id") Long id) {
-		return service.getSymptom(id);
+	public @ResponseBody DiseaseGet getDisease(@PathVariable("id") Long id) {
+		return service.getDisease(id);
     }
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody SymptomGet create(@RequestBody SymptomCreate symptom) {
-		return service.createSymptom(symptom);
+	public @ResponseBody DiseaseGet create(@RequestBody DiseaseCreate disease) {
+		return service.createDisease(disease);
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody SymptomGet create(@RequestBody SymptomUpdate symptom) {
-		return service.updateSymptom(symptom);
+	public @ResponseBody DiseaseGet create(@RequestBody DiseaseUpdate disease) {
+		return service.updateDisease(disease);
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<SymptomGet> getAll() {
-		return service.getSymptoms();
+	public @ResponseBody List<DiseaseGet> getAll() {
+		return service.getDiseases();
 	}
 }

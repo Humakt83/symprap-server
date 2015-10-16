@@ -19,17 +19,17 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.ValidatableResponse;
 
 import fi.ukkosnetti.symprap.SymprapApplication;
-import fi.ukkosnetti.symprap.dto.SymptomCreate;
-import fi.ukkosnetti.symprap.dto.SymptomGet;
+import fi.ukkosnetti.symprap.dto.DiseaseCreate;
+import fi.ukkosnetti.symprap.dto.DiseaseGet;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SymprapApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port:0",
         "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=TRUE"})
-public class SymptomControllerTest {
+public class DiseaseControllerTest {
 
-	private static final String SYMPTOM = "diabetes";
+	private static final String DISEASE = "diabetes";
 	
 	@Value("${local.server.port}")
 	private int port;
@@ -40,23 +40,23 @@ public class SymptomControllerTest {
     }
     
 	@Test
-	public void insertsSymptom() throws Exception {
-		insertSymptom("diarrhea").statusCode(Status.OK.getStatusCode());
+	public void insertsDisease() throws Exception {
+		insertDisease("diarrhea").statusCode(Status.OK.getStatusCode());
 	}
 	
 	@Test
-	public void returnsSymptom() throws Exception {
-		Long id = insertSymptom(SYMPTOM).extract().as(SymptomGet.class).getId();
-		SymptomGet symptom = given().contentType(MediaType.APPLICATION_JSON)
-			.get("/symptom/" + id).then().extract().as(SymptomGet.class);
-		assertEquals(id, symptom.getId());
-		assertEquals(SYMPTOM, symptom.getSymptom());
+	public void returnsDisease() throws Exception {
+		Long id = insertDisease(DISEASE).extract().as(DiseaseGet.class).getId();
+		DiseaseGet disease = given().contentType(MediaType.APPLICATION_JSON)
+			.get("/disease/" + id).then().extract().as(DiseaseGet.class);
+		assertEquals(id, disease.getId());
+		assertEquals(DISEASE, disease.getDisease());
 	}
 	
-	private ValidatableResponse insertSymptom(String symptom) {
+	private ValidatableResponse insertDisease(String disease) {
 		return given().contentType(MediaType.APPLICATION_JSON)
-			.body(new SymptomCreate(symptom))
-			.post("/symptom/create")
+			.body(new DiseaseCreate(disease))
+			.post("/disease/create")
 			.then();
 	}
 }

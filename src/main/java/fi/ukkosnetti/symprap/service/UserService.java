@@ -16,7 +16,7 @@ import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.dto.UserUpdate;
 import fi.ukkosnetti.symprap.model.User;
-import fi.ukkosnetti.symprap.repository.SymptomRepository;
+import fi.ukkosnetti.symprap.repository.DiseaseRepository;
 import fi.ukkosnetti.symprap.repository.UserRepository;
 
 @Service
@@ -26,7 +26,7 @@ public class UserService implements UserDetailsService {
 	private UserRepository repository;
 	
 	@Autowired
-	private SymptomRepository symptomRepository;
+	private DiseaseRepository diseaseRepository;
 	
 	@Autowired
 	private LombokMapper mapper;

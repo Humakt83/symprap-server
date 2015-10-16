@@ -5,16 +5,16 @@ import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public @Data class SymptomCreate {
+public @Data class DiseaseCreate {
 
-	private final String symptom;
+	private final String disease;
 
-	public SymptomCreate(String symptom) {
-		this.symptom = symptom;
+	public DiseaseCreate(String disease) {
+		this.disease = disease;
 	}
 	
 	@SuppressWarnings("unused")
-	private SymptomCreate() {
+	private DiseaseCreate() {
 		this(null);
 	}
 }

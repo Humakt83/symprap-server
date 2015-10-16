@@ -21,7 +21,7 @@ import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.model.User;
-import fi.ukkosnetti.symprap.repository.SymptomRepository;
+import fi.ukkosnetti.symprap.repository.DiseaseRepository;
 import fi.ukkosnetti.symprap.repository.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,7 +34,7 @@ public class UserServiceTest {
 	private UserRepository repo;
 	
 	@Mock
-	private SymptomRepository symptomRepo;
+	private DiseaseRepository diseaseRepo;
 	
 	@InjectMocks
 	private UserService service;

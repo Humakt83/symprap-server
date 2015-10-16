@@ -112,7 +112,7 @@ public class OAuth2SecurityConfiguration {
 				.fullyAuthenticated()
 				.and()
 				.authorizeRequests()
-				.antMatchers("/user/**", "/symptom/**", "/question/**")
+				.antMatchers("/user/**", "/disease/**", "/question/**")
 				.permitAll();
 		}
 

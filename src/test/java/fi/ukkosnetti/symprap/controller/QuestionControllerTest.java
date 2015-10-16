@@ -20,9 +20,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.jayway.restassured.RestAssured;
 
 import fi.ukkosnetti.symprap.SymprapApplication;
+import fi.ukkosnetti.symprap.dto.DiseaseCreate;
+import fi.ukkosnetti.symprap.dto.DiseaseGet;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
-import fi.ukkosnetti.symprap.dto.SymptomCreate;
-import fi.ukkosnetti.symprap.dto.SymptomGet;
 import fi.ukkosnetti.symprap.model.AnswerType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +33,7 @@ import fi.ukkosnetti.symprap.model.AnswerType;
 public class QuestionControllerTest {
 
 	private static final String QUESTION = "Is this a question?";
-	private static Long symptomId; 
+	private static Long diseaseId; 
 	
 	@Value("${local.server.port}")
 	private int port;
@@ -41,13 +41,13 @@ public class QuestionControllerTest {
     @Before
     public void setUp() throws Exception {
         RestAssured.port = port;
-        if (symptomId == null) symptomId = insertSymptom();
+        if (diseaseId == null) diseaseId = insertDisease();
     }
     
 	@Test
 	public void insertsQuestion() throws Exception {
 		given().contentType(MediaType.APPLICATION_JSON)
-			.body(new QuestionCreate(QUESTION, AnswerType.TEXT, symptomId))
+			.body(new QuestionCreate(QUESTION, AnswerType.TEXT, diseaseId))
 			.post("/question/create")
 			.then()
 			.statusCode(Status.OK.getStatusCode());
@@ -63,11 +63,11 @@ public class QuestionControllerTest {
 		assertTrue(questions.size() > 1);
 	}
 	
-	private Long insertSymptom() {
+	private Long insertDisease() {
 		return given().contentType(MediaType.APPLICATION_JSON)
-			.body(new SymptomCreate("flu"))
-			.post("/symptom/create")
-			.then().extract().as(SymptomGet.class).getId();
+			.body(new DiseaseCreate("flu"))
+			.post("/disease/create")
+			.then().extract().as(DiseaseGet.class).getId();
 	}
 	
 }
