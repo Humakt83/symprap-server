@@ -32,4 +32,9 @@ public class AnswerController {
 	public void create(@RequestBody AnswerCreate answer) {
 		service.createAnswer(answer);
 	}
+	
+	@RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+	public void create(@RequestBody List<AnswerCreate> answers) {
+		answers.forEach(service::createAnswer);
+	}
 }
