@@ -58,20 +58,21 @@ public class OAuth2SecurityConfiguration {
 	private UserService userDetailsService;
 	
 	
+	@SuppressWarnings("unchecked")
 	@Bean
 	public AuthenticationManager authenticationManager() {
 		try {
 			userDetailsService.createUser(new UserCreate("adm", "admin", "Super", "User", null, null, Arrays.asList(UserRole.ADMIN), null));				
 			return new AuthenticationManagerBuilder(new NopPostProcessor()).userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder()).and().build();
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
 	
+   @SuppressWarnings("rawtypes")
    private static class NopPostProcessor implements ObjectPostProcessor {
         @Override
-        @SuppressWarnings("unchecked")
         public Object postProcess(Object object) {
             return object;
         }
@@ -89,31 +90,30 @@ public class OAuth2SecurityConfiguration {
 			
 			http.csrf().disable();
 			
-			http
-			.authorizeRequests()
-				.antMatchers("/oauth/token").anonymous();
+			http.authorizeRequests()
+				.antMatchers("/oauth/token", "/user/register", "/disease/all")
+				.anonymous();
 			
 			
 			// If you were going to reuse this class in another
 			// application, this is one of the key sections that you
 			// would want to change
 			
-			// Require all GET requests to have client "read" scope			
 			http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/answer/**")
-				.access("#oauth2.hasScope('read')")
-				.anyRequest()
-				.fullyAuthenticated()
-				.and()
-				.authorizeRequests()
-				.antMatchers("/answer/**")
+				.antMatchers(HttpMethod.GET, "/answer/**", "/user/**", "/question/**")
+				.access("#oauth2.hasScope('read')");
+			http.authorizeRequests()
+				.antMatchers("/answer/**", "/user/**", "/question/**")
 				.access("#oauth2.hasScope('write')")
 				.anyRequest()
-				.fullyAuthenticated()
+				.fullyAuthenticated();
+			http.authorizeRequests()
+				.antMatchers(HttpMethod.POST, "/disease/**")				
+				.access("#oauth2.hasScope('write')")
 				.and()
 				.authorizeRequests()
-				.antMatchers("/user/**", "/disease/**", "/question/**")
-				.permitAll();
+				.antMatchers(HttpMethod.PUT, "/disease/**")	
+				.access("#oauth2.hasScope('write')");
 		}
 
 	}

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.dto.UserUpdate;
+import fi.ukkosnetti.symprap.model.UserRole;
 import fi.ukkosnetti.symprap.service.UserService;
 
 @RestController
@@ -26,6 +27,14 @@ public class UserController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody UserGet create(@RequestBody UserCreate user) {
+		return service.createUser(user);
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody UserGet register(@RequestBody UserCreate user) {
+		if (user.getRoles().contains(UserRole.ADMIN)) {
+			throw new IllegalArgumentException("Admin creation is not allowed");
+		}
 		return service.createUser(user);
 	}
 	
