@@ -1,10 +1,12 @@
 package fi.ukkosnetti.symprap.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,14 @@ public class AnswerController {
 	public @ResponseBody List<AnswerGet> getAllAnswerForQuestion(@PathVariable("questionid") Long questionId) {
 		return service.getAnswersForQuestion(questionId);
     }
+	
+	@RequestMapping(value = "/byuser/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<AnswerGet> getAllAnswersByUser(@PathVariable("username") String username, Principal principal) {
+		if (!principal.getName().equals(username)) {
+			throw new UnauthorizedUserException("You are not logged in as user " + username);
+		}
+		return service.getAnswersByUser(username);
+	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
 	public void create(@RequestBody AnswerCreate answer) {

@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @ToString
 @EqualsAndHashCode
 @Entity
@@ -44,5 +46,10 @@ public class Answer {
 	@PrePersist
 	private void setCreated() {
 		created = new Date();
+	}
+	
+	@JsonProperty("questionId")
+	public Long getQuestionId() {
+		return question != null ? question.getId() : null;
 	}
 }

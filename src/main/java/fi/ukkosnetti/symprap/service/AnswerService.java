@@ -41,6 +41,14 @@ public class AnswerService {
 				.map(answer -> mapper.convertValue(answer, AnswerGet.class))
 				.collect(Collectors.toList());
 	}
+	
+	public List<AnswerGet> getAnswersByUser(String username) {
+		User user = userRepository.getUserByUserName(username);
+		return repository.findByUser(user)
+				.stream()
+				.map(answer -> mapper.convertValue(answer, AnswerGet.class))
+				.collect(Collectors.toList());
+	}
 
 	public void createAnswer(AnswerCreate answer) {
 		Question question = questionRepository.findOne(answer.getQuestionId());
