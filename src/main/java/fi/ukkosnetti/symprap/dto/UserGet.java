@@ -29,9 +29,11 @@ public @Data class UserGet {
 	private final List<DiseaseGet> diseases;
 	
 	private final List<String> followers;
+	
+	private final List<String> followees;
 
 	public UserGet(Long id, String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, 
-			List<UserRole> roles, List<DiseaseGet> diseases, List<String> followers) {
+			List<UserRole> roles, List<DiseaseGet> diseases, List<String> followers, List<String> followees) {
 		this.id = id;
 		this.userName = userName;
 		this.firstName = firstName;
@@ -41,11 +43,12 @@ public @Data class UserGet {
 		this.roles = roles;
 		this.diseases = diseases;
 		this.followers = followers;
+		this.followees = followees;
 	}
 	
 	@SuppressWarnings("unused")
 	private UserGet() {
-		this(null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null);
 	}
 
 }

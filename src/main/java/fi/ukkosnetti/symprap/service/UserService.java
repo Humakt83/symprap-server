@@ -61,12 +61,25 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void addFollower(String username, String follower) {
-		if (repository.getUserByUserName(follower) == null) {
+		User followerUser = repository.getUserByUserName(follower);
+		if (followerUser == null) {
 			throw new IllegalArgumentException("User " + follower + " does not exist");
 		}
 		User user = repository.getUserByUserName(username);
-		user.addFollower(follower);
+		user.addFollower(followerUser);
 		repository.save(user);
+		repository.save(followerUser);
+	}
+
+	public void removeFollower(String username, String follower) {
+		User user = repository.getUserByUserName(username);
+		User followerUser = repository.getUserByUserName(follower);
+		if (!user.getFollowers().contains(follower)) {
+			throw new IllegalArgumentException(String.format("User %s does not have follower %s", username, follower));
+		}
+		user.removeFollower(followerUser);
+		repository.save(user);
+		repository.save(followerUser);
 	}
 	
 	@Override

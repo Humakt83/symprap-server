@@ -68,4 +68,9 @@ public class UserController {
 		service.addFollower(principalName, username);
 	}
 	
+	@RequestMapping(value = "/follower/remove/{username}", method = RequestMethod.PUT)
+	public void removeFollower(@PathVariable("username") String username, Principal principal) {
+		service.removeFollower(principal.getName(), username);
+	}
+	
 }
