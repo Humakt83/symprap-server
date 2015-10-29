@@ -1,5 +1,6 @@
 package fi.ukkosnetti.symprap.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -54,8 +55,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/byusername/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody UserGet getUserByUserName(@PathVariable("username") String userName) {
-		return service.getUserByUserName(userName);
+	public @ResponseBody UserGet getUserByUserName(@PathVariable("username") String username) {
+		return service.getUserByUserName(username);
+	}
+	
+	@RequestMapping(value = "/follower/add/{username}", method = RequestMethod.PUT)
+	public void addFollower(@PathVariable("username") String username, Principal principal) {
+		String principalName = principal.getName();
+		if (principalName.equals(username)) {
+			throw new IllegalArgumentException("Cannot add self as a follower");
+		}
+		service.addFollower(principalName, username);
 	}
 	
 }

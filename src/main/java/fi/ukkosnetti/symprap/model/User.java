@@ -70,5 +70,13 @@ public class User {
 	@Fetch(FetchMode.JOIN)
 	private Set<UserRole> roles = new HashSet<>();
 	
+	@ElementCollection
+	@Getter
+	@Setter
+	@Fetch(FetchMode.JOIN)
+	private Set<String> followers = new HashSet<>();
 	
+	public void addFollower(String follower) {
+		followers.add(follower);
+	}
 }

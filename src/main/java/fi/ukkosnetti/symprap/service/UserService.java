@@ -32,15 +32,15 @@ public class UserService implements UserDetailsService {
 	private LombokMapper mapper;
 	
 	public UserGet createUser(UserCreate user) {
-		String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 		User entity = mapper.convertValue(user, User.class);
-		entity.setPassword(hashed);
+		entity.setPassword(hashAndSaltPass(user));
 		repository.save(entity);
 		return mapper.convertValue(entity, UserGet.class);
 	}
-	
+
 	public UserGet updateUser(UserUpdate user) {
 		User entity = repository.save(mapper.convertValue(user, User.class));
+		entity.setPassword(hashAndSaltPass(user));
 		return mapper.convertValue(entity, UserGet.class);
 	}
 	
@@ -60,10 +60,23 @@ public class UserService implements UserDetailsService {
 		return mapper.convertValue(user, UserGet.class);
 	}
 	
+	public void addFollower(String username, String follower) {
+		if (repository.getUserByUserName(follower) == null) {
+			throw new IllegalArgumentException("User " + follower + " does not exist");
+		}
+		User user = repository.getUserByUserName(username);
+		user.addFollower(follower);
+		repository.save(user);
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = repository.getUserByUserName(username);
 		return new SymprapUserDetails(user.getUserName(), user.getPassword(), user.getRoles());
+	}
+	
+	private String hashAndSaltPass(UserCreate user) {
+		return BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 	}
 	
 }

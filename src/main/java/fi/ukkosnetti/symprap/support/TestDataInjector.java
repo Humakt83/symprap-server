@@ -12,6 +12,7 @@ import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.UserCreate;
+import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.model.AnswerType;
 import fi.ukkosnetti.symprap.model.UserRole;
 import fi.ukkosnetti.symprap.service.DiseaseService;
@@ -37,7 +38,8 @@ public class TestDataInjector {
 	public void injectTestData() {
 		if (!testDataEnabled) return;
 		final DiseaseGet disease = injectDisease();
-		injectUser(disease);
+		final UserGet user = injectUser(disease);
+		injectFollower(user);
 		injectQuestions(disease.getId());
 	}
 
@@ -52,8 +54,15 @@ public class TestDataInjector {
 		return service.createDisease(new DiseaseCreate("Diabetes"));
 	}
 	
-	private void injectUser(DiseaseGet disease) {
-		userService.createUser(new UserCreate("tester", "test", "First", "Last", null, 1234543l, 
+	private UserGet injectUser(DiseaseGet disease) {
+		return userService.createUser(new UserCreate("tester", "test", "First", "Last", null, 1234543l, 
 				Arrays.asList(UserRole.TEEN), Arrays.asList(disease)));
+	}
+	
+	private void injectFollower(UserGet user) {
+		final String username = "follower"; 
+		userService.createUser(new UserCreate(username, "test", "First", "Last", null, 1234541l, 
+				Arrays.asList(UserRole.FOLLOWER), null));
+		userService.addFollower(user.getUserName(), username);
 	}
 }
