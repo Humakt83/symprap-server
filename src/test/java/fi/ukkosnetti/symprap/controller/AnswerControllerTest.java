@@ -52,7 +52,7 @@ public class AnswerControllerTest {
 	@Test
 	public void insertsAnAnswerToQuestion() throws Exception {
 		given().contentType(MediaType.APPLICATION_JSON)
-			.body(new AnswerCreate(questionId, "This is answer", userId))
+			.body(new AnswerCreate(questionId, "This is answer", userId, false))
 			.post("/answer/create")
 			.then()
 			.statusCode(Status.OK.getStatusCode());

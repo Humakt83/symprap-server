@@ -36,7 +36,7 @@ public class AnswerController {
 	@RequestMapping(value = "/byuser/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<AnswerGet> getAllAnswersByUser(@PathVariable("username") String username, Principal principal) {
 		authorizationVerifier.validateAuthorizationAsAUserOrFollower(username, principal);
-		return service.getAnswersByUser(username);		
+		return service.getAnswersByUser(username, username.equals(principal.getName()));
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)

@@ -43,6 +43,10 @@ public class Answer {
 	@Setter
 	private User user;
 	
+	@Getter
+	@Setter
+	private boolean answerIsPrivate;
+	
 	@PrePersist
 	private void setCreated() {
 		created = new Date();

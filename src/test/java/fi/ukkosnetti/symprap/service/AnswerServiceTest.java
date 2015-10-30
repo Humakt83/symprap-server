@@ -116,7 +116,7 @@ public class AnswerServiceTest {
 		Question question = new Question();
 		question.setAnswerType(answerType);
 		when(questionRepository.findOne(any())).thenReturn(question);
-		return new AnswerCreate(1l, answer, 71l);
+		return new AnswerCreate(1l, answer, 71l, false);
 	}
 	
 	

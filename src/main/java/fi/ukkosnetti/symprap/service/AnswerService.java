@@ -42,10 +42,11 @@ public class AnswerService {
 				.collect(Collectors.toList());
 	}
 	
-	public List<AnswerGet> getAnswersByUser(String username) {
+	public List<AnswerGet> getAnswersByUser(String username, boolean includePrivate) {
 		User user = userRepository.getUserByUserName(username);
 		return repository.findByUser(user)
 				.stream()
+				.filter(answer -> !answer.isAnswerIsPrivate() || includePrivate)
 				.map(answer -> mapper.convertValue(answer, AnswerGet.class))
 				.collect(Collectors.toList());
 	}
@@ -56,6 +57,7 @@ public class AnswerService {
 		Answer entity = new Answer();
 		entity.setQuestion(question);
 		entity.setAnswer(answer.getAnswer());
+		entity.setAnswerIsPrivate(answer.isAnswerIsPrivate());
 		setUser(userRepository.findOne(answer.getUserId()), entity);
 		repository.save(entity);
 	}
