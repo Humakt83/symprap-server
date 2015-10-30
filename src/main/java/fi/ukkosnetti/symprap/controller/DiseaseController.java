@@ -1,5 +1,6 @@
 package fi.ukkosnetti.symprap.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.ukkosnetti.symprap.auth.AuthorizationVerifier;
 import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
 import fi.ukkosnetti.symprap.dto.DiseaseUpdate;
 import fi.ukkosnetti.symprap.service.DiseaseService;
+import fi.ukkosnetti.symprap.service.UserService;
 
 @RestController
 @RequestMapping(value = "/disease")
@@ -23,6 +26,12 @@ public class DiseaseController {
 
 	@Autowired
 	private DiseaseService service;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthorizationVerifier authorizationVerifier;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody DiseaseGet getDisease(@PathVariable("id") Long id) {
@@ -42,5 +51,11 @@ public class DiseaseController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<DiseaseGet> getAll() {
 		return service.getDiseases();
+	}
+	
+	@RequestMapping(value = "/byuser/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<DiseaseGet> getDiseasesOfUser(@PathVariable("username") String username, Principal principal) {
+		authorizationVerifier.validateAuthorizationAsAUserOrFollower(username, principal);
+		return userService.getUserByUserName(username).getDiseases();
 	}
 }

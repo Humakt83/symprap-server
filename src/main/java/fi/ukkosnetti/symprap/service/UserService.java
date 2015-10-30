@@ -82,6 +82,10 @@ public class UserService implements UserDetailsService {
 		repository.save(followerUser);
 	}
 	
+	public boolean isFollower(String username, String follower) {
+		return repository.getUserByUserName(username).getFollowers().contains(follower);
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = repository.getUserByUserName(username);
