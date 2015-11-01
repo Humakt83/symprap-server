@@ -19,6 +19,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
@@ -124,6 +125,7 @@ public class OAuth2SecurityConfiguration {
 	 */
 	@Configuration
 	@EnableAuthorizationServer
+	@EnableGlobalMethodSecurity(prePostEnabled = true)
 	@Order(Ordered.LOWEST_PRECEDENCE - 100)
 	protected static class OAuth2Config extends
 			AuthorizationServerConfigurerAdapter {

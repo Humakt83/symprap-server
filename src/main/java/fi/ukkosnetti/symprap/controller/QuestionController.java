@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.ukkosnetti.symprap.auth.Authorities;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.dto.QuestionUpdate;
@@ -39,11 +41,13 @@ public class QuestionController {
 		return service.getQuestion(id);
 	}
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody QuestionGet update(@RequestBody QuestionUpdate question) {
 		return service.updateQuestion(question);
 	}
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody QuestionGet create(@RequestBody QuestionCreate question) {
 		return service.createQuestion(question);

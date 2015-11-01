@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.ukkosnetti.symprap.auth.Authorities;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.dto.UserUpdate;
@@ -26,6 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody UserGet create(@RequestBody UserCreate user) {
 		return service.createUser(user);
@@ -44,11 +47,13 @@ public class UserController {
 		return service.updateUser(user);
 	}
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<UserGet> allUsers() {
 		return service.getUsers();
 	}
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody UserGet getUser(@PathVariable("id") Long id) {
 		return service.getUser(id);
@@ -59,6 +64,7 @@ public class UserController {
 		return service.getUserByUserName(username);
 	}
 	
+	@PreAuthorize(Authorities.TEEN)
 	@RequestMapping(value = "/follower/add/{username}", method = RequestMethod.PUT)
 	public void addFollower(@PathVariable("username") String username, Principal principal) {
 		String principalName = principal.getName();
@@ -68,6 +74,7 @@ public class UserController {
 		service.addFollower(principalName, username);
 	}
 	
+	@PreAuthorize(Authorities.TEEN)
 	@RequestMapping(value = "/follower/remove/{username}", method = RequestMethod.PUT)
 	public void removeFollower(@PathVariable("username") String username, Principal principal) {
 		service.removeFollower(principal.getName(), username);

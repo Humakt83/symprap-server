@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.ukkosnetti.symprap.auth.Authorities;
 import fi.ukkosnetti.symprap.auth.AuthorizationVerifier;
 import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
@@ -38,11 +40,13 @@ public class DiseaseController {
 		return service.getDisease(id);
     }
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody DiseaseGet create(@RequestBody DiseaseCreate disease) {
 		return service.createDisease(disease);
 	}
 	
+	@PreAuthorize(Authorities.ADMIN)
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody DiseaseGet create(@RequestBody DiseaseUpdate disease) {
 		return service.updateDisease(disease);
