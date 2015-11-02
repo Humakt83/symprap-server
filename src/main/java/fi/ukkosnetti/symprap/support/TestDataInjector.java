@@ -45,7 +45,7 @@ public class TestDataInjector {
 
 	private void injectQuestions(Long diseaseId) {
 		questionService.createQuestion(new QuestionCreate("Did you administer insulin?", AnswerType.BOOLEAN, diseaseId));
-		questionService.createQuestion(new QuestionCreate("What was your blood sugar level last you took it?", 
+		questionService.createQuestion(new QuestionCreate("What was your blood sugar level last time you took it?", 
 				AnswerType.DOUBLE, diseaseId));
 		questionService.createQuestion(new QuestionCreate("What did you eat at meal time?", AnswerType.TEXT, diseaseId));
 	}
