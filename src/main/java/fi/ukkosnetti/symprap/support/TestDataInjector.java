@@ -44,10 +44,18 @@ public class TestDataInjector {
 	}
 
 	private void injectQuestions(Long diseaseId) {
-		questionService.createQuestion(new QuestionCreate("Did you administer insulin?", AnswerType.BOOLEAN, diseaseId));
-		questionService.createQuestion(new QuestionCreate("What was your blood sugar level last time you took it?", 
+		questionService.createQuestion(new QuestionCreate("What was your blood sugar level at meal time?", 
 				AnswerType.DOUBLE, diseaseId));
+		questionService.createQuestion(new QuestionCreate("What time did you check your blood sugar level at meal time?", 
+				AnswerType.TEXT, diseaseId));
 		questionService.createQuestion(new QuestionCreate("What did you eat at meal time?", AnswerType.TEXT, diseaseId));
+		questionService.createQuestion(new QuestionCreate("Did you administer insulin?", AnswerType.BOOLEAN, diseaseId));
+		questionService.createQuestion(new QuestionCreate("Who were you with when you checked/should have checked your blood sugar?", AnswerType.TEXT, diseaseId));
+		questionService.createQuestion(new QuestionCreate("Where were you when you checked/should have checked your blood sugar?", AnswerType.TEXT, diseaseId));
+		questionService.createQuestion(new QuestionCreate("How was your mood when you checked/should have checked your blood sugar?", AnswerType.TEXT, diseaseId));
+		questionService.createQuestion(new QuestionCreate("How was your stress level when you checked/should have checked your blood sugar?", AnswerType.TEXT, diseaseId));
+		questionService.createQuestion(new QuestionCreate("How was your energy level when you checked/should have checked your blood sugar?", AnswerType.TEXT, diseaseId));
+		
 	}
 
 	private DiseaseGet injectDisease() {
