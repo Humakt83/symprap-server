@@ -58,12 +58,15 @@ public class OAuth2SecurityConfiguration {
 	@Autowired
 	private UserService userDetailsService;
 	
+	@Value("${adminPass:test}")
+	private String adminPass;
+	
 	
 	@SuppressWarnings("unchecked")
 	@Bean
 	public AuthenticationManager authenticationManager() {
 		try {
-			userDetailsService.createUser(new UserCreate("adm", "admin", "Super", "User", null, null, Arrays.asList(UserRole.ADMIN), null));				
+			userDetailsService.createUser(new UserCreate("adm", adminPass, "Super", "User", null, null, Arrays.asList(UserRole.ADMIN), null));				
 			return new AuthenticationManagerBuilder(new NopPostProcessor()).userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder()).and().build();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,8 +148,11 @@ public class OAuth2SecurityConfiguration {
 			
 			// Create a service that has the credentials for all our clients
 			clientService = new InMemoryClientDetailsServiceBuilder()
-					// Create a client that has "read" and "write" access to the
-			        // video service
+					.withClient("admin").authorizedGrantTypes("password")
+					.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+					.scopes("read", "write")
+					.accessTokenValiditySeconds(3600)
+					.and()
 					.withClient("mobile").authorizedGrantTypes("password")
 					.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
 					.scopes("read","write")
