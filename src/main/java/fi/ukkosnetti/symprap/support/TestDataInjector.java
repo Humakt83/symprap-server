@@ -19,6 +19,10 @@ import fi.ukkosnetti.symprap.service.DiseaseService;
 import fi.ukkosnetti.symprap.service.QuestionService;
 import fi.ukkosnetti.symprap.service.UserService;
 
+/**
+ * Simple utility class, that injects test data to the database
+ * to ease the testing process. 
+ */
 @Component
 public class TestDataInjector {
 		

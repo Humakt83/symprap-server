@@ -37,19 +37,6 @@ import fi.ukkosnetti.symprap.service.UserService;
 
 /**
  *	Configure this web application to use OAuth 2.0.
- *
- *  Most of this code can be reused in other applications. The key methods that would definitely need to
- *  be changed are:
- *  
- *  ResourceServer.configure(...) - update this method to apply the appropriate 
- *  set of scope requirements on client requests
- *  
- *  OAuth2Config constructor - update this constructor to create a "real" (not hard-coded) UserDetailsService
- *  and ClientDetailsService for authentication. The current implementation should never be used in any
- *  type of production environment as these hard-coded credentials are highly insecure.
- *  
- *  OAuth2SecurityConfiguration.containerCustomizer(...) - update this method to use a real keystore
- *  and certificate signed by a CA. This current version is highly insecure.
  *  
  */
 @Configuration
@@ -87,8 +74,6 @@ public class OAuth2SecurityConfiguration {
 	protected static class ResourceServer extends
 			ResourceServerConfigurerAdapter {
 
-		// This method configures the OAuth scopes required by clients to access
-		// all of the paths in the video service.
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			
@@ -98,10 +83,6 @@ public class OAuth2SecurityConfiguration {
 				.antMatchers("/oauth/token", "/user/register", "/disease/all")
 				.anonymous();
 			
-			
-			// If you were going to reuse this class in another
-			// application, this is one of the key sections that you
-			// would want to change
 			
 			http.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/answer/**", "/user/**", "/question/**")

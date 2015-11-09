@@ -20,6 +20,9 @@ import fi.ukkosnetti.symprap.dto.AnswerCreate;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.service.AnswerService;
 
+/**
+ * REST controller for submitting and retrieving answer data
+ */
 @RestController
 @RequestMapping(value = "/answer")
 public class AnswerController {

@@ -19,6 +19,9 @@ import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.dto.QuestionUpdate;
 import fi.ukkosnetti.symprap.service.QuestionService;
 
+/**
+ * REST controller that provides CRUD operations to questions associated with diseases
+ */
 @RestController
 @RequestMapping(value = "/question")
 public class QuestionController {

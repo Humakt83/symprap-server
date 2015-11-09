@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Simple filter for CORS that enables the cross-origin requests from the browser.
+ * For production use, this class should be changed to enable only certain origins. 
+ */
 @Component
 public class SimpleCorsFilter implements Filter {
 

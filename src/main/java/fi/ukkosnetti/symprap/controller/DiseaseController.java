@@ -22,6 +22,9 @@ import fi.ukkosnetti.symprap.dto.DiseaseUpdate;
 import fi.ukkosnetti.symprap.service.DiseaseService;
 import fi.ukkosnetti.symprap.service.UserService;
 
+/**
+ * REST controller for that provides CRUD operations for diseases
+ */
 @RestController
 @RequestMapping(value = "/disease")
 public class DiseaseController {

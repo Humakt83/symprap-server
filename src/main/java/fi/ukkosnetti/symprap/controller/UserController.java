@@ -21,6 +21,10 @@ import fi.ukkosnetti.symprap.dto.UserUpdate;
 import fi.ukkosnetti.symprap.model.UserRole;
 import fi.ukkosnetti.symprap.service.UserService;
 
+/**
+ * REST controller for user related operations, like registering,
+ * adding and removing followers. *
+ */
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
