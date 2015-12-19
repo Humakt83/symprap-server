@@ -1,6 +1,7 @@
 package fi.ukkosnetti.symprap.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,6 +51,11 @@ public class Question {
 	@Getter
 	@Setter
 	private Disease disease;
+	
+	@ManyToOne
+	@Getter
+	@Setter
+	private Set<String> selectableAnswers;
 	
 	@PrePersist
 	private void setCreated() {

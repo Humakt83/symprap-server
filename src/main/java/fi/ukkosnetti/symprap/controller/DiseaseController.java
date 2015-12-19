@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.ukkosnetti.symprap.auth.Authorities;
-import fi.ukkosnetti.symprap.auth.AuthorizationVerifier;
+import fi.ukkosnetti.symprap.auth.verifier.AuthorizationVerifier;
 import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
 import fi.ukkosnetti.symprap.dto.DiseaseUpdate;

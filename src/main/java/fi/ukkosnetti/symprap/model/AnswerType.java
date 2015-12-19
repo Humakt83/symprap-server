@@ -2,6 +2,6 @@ package fi.ukkosnetti.symprap.model;
 
 public enum AnswerType {
 
-	TEXT, DOUBLE, BOOLEAN;
+	TEXT, DOUBLE, BOOLEAN, DATE, PICTURE, SELECT;
 		
 }

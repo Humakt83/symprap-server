@@ -18,15 +18,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.ValidatableResponse;
 
-import fi.ukkosnetti.symprap.SymprapApplication;
+import fi.ukkosnetti.symprap.SymprapTestApplication;
 import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SymprapApplication.class)
+@SpringApplicationConfiguration(classes = SymprapTestApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port:0",
-        "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=TRUE"})
+        "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=TRUE", "testAuthDisabled:true"})
 public class DiseaseControllerTest {
 
 	private static final String DISEASE = "diabetes";

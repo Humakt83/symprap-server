@@ -21,7 +21,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.jayway.restassured.RestAssured;
 
-import fi.ukkosnetti.symprap.SymprapApplication;
+import fi.ukkosnetti.symprap.SymprapTestApplication;
 import fi.ukkosnetti.symprap.dto.AnswerCreate;
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.UserCreate;
@@ -30,10 +30,10 @@ import fi.ukkosnetti.symprap.model.AnswerType;
 import fi.ukkosnetti.symprap.model.UserRole;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SymprapApplication.class)
+@SpringApplicationConfiguration(classes = SymprapTestApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port:0",
-        "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=TRUE"})
+        "spring.datasource.url:jdbc:h2:mem:symprap;DB_CLOSE_ON_EXIT=FALSE"})
 public class AnswerControllerTest {
 
 	@Value("${local.server.port}")
