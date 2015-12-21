@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.ToString;
 import fi.ukkosnetti.symprap.model.UserRole;
 
-@ToString
 public class UserUpdate extends UserCreate {
 	
-	@Getter
-	private final Long id;
+	public final Long id;
 	
 	public UserUpdate(String userName, String password, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, List<UserRole> userRoles,
 			List<DiseaseGet> diseases, Long id) {

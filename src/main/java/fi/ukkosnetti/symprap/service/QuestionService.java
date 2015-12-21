@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.dto.QuestionUpdate;
@@ -26,7 +27,7 @@ public class QuestionService {
 	private DiseaseRepository diseaseRepository;
 	
 	@Autowired
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 	
 	public List<QuestionGet> getQuestions() {
 		List<QuestionGet> questions = new ArrayList<>();
@@ -48,7 +49,7 @@ public class QuestionService {
 	}
 	
 	public QuestionGet createQuestion(QuestionCreate question) {
-		Disease disease = diseaseRepository.findOne(question.getDiseaseId());
+		Disease disease = diseaseRepository.findOne(question.diseaseId);
 		Question entity = mapper.convertValue(question, Question.class);
 		entity.setDisease(disease);
 		entity = repository.save(entity);
@@ -56,7 +57,7 @@ public class QuestionService {
 	}
 	
 	public QuestionGet updateQuestion(QuestionUpdate question) {
-		Disease disease = diseaseRepository.findOne(question.getDiseaseId());
+		Disease disease = diseaseRepository.findOne(question.diseaseId);
 		Question entity = mapper.convertValue(question, Question.class);
 		entity.setDisease(disease);
 		entity = repository.save(entity);

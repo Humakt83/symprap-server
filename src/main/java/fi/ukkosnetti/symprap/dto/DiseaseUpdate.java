@@ -1,13 +1,8 @@
 package fi.ukkosnetti.symprap.dto;
 
-import lombok.Getter;
-import lombok.ToString;
-
-@ToString
 public class DiseaseUpdate extends DiseaseCreate {
 	
-	@Getter
-	private final Long id;
+	public final Long id;
 	
 	public DiseaseUpdate(Long id, String disease) {
 		super(disease);

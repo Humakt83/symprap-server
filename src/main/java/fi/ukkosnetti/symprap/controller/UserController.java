@@ -40,7 +40,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody UserGet register(@RequestBody UserCreate user) {
-		if (user.getRoles().contains(UserRole.ADMIN)) {
+		if (user.roles.contains(UserRole.ADMIN)) {
 			throw new IllegalArgumentException("Admin creation is not allowed");
 		}
 		return service.createUser(user);

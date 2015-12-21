@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,23 +19,44 @@ public class Disease {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter
 	private Long id;
 	
 	@Column(unique = true, nullable = false)
-	@Getter
-	@Setter
 	private String disease;
 	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "disease", fetch = FetchType.LAZY)
-	@Getter
-	@Setter
 	@JsonIgnore
 	private Set<Question> questions;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "diseases")
-	@Getter
-	@Setter
 	@JsonIgnore
 	private Set<User> users;
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public String getDisease() {
+		return disease;
+	}
+	
+	public void setDisease(String disease) {
+		this.disease = disease;
+	}
+	
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+	
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
+	
+	public Set<User> getUsers() {
+		return users;
+	}
+	
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 }

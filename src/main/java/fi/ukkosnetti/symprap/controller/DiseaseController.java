@@ -63,6 +63,6 @@ public class DiseaseController {
 	@RequestMapping(value = "/byuser/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<DiseaseGet> getDiseasesOfUser(@PathVariable("username") String username, Principal principal) {
 		authorizationVerifier.validateAuthorizationAsAUserOrFollower(username, principal);
-		return userService.getUserByUserName(username).getDiseases();
+		return userService.getUserByUserName(username).diseases;
 	}
 }

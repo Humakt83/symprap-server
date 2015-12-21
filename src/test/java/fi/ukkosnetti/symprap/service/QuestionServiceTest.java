@@ -17,7 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.dto.QuestionCreate;
 import fi.ukkosnetti.symprap.dto.QuestionGet;
 import fi.ukkosnetti.symprap.model.AnswerType;
@@ -36,7 +37,7 @@ public class QuestionServiceTest {
 	private DiseaseRepository diseaseRepo;
 	
 	@Mock
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 	
 	@InjectMocks
 	private QuestionService service;

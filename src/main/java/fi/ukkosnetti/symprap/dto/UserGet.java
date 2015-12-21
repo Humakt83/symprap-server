@@ -3,34 +3,32 @@ package fi.ukkosnetti.symprap.dto;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Data;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import fi.ukkosnetti.symprap.model.UserRole;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public @Data class UserGet {
+public class UserGet {
 	
-	private final Long id;
+	public final Long id;
 	
-	private final String userName;
+	public final String userName;
 	
-	private final String firstName;
+	public final String firstName;
 	
-	private final String lastName;
+	public final String lastName;
 	
-	private final Date dateOfBirth;
+	public final Date dateOfBirth;
 	
-	private final Long medicalRecordNumber;
+	public final Long medicalRecordNumber;
 	
-	private final List<UserRole> roles;
+	public final List<UserRole> roles;
 	
-	private final List<DiseaseGet> diseases;
+	public final List<DiseaseGet> diseases;
 	
-	private final List<String> followers;
+	public final List<String> followers;
 	
-	private final List<String> followees;
+	public final List<String> followees;
 
 	public UserGet(Long id, String userName, String firstName, String lastName, Date dateOfBirth, Long medicalRecordNumber, 
 			List<UserRole> roles, List<DiseaseGet> diseases, List<String> followers, List<String> followees) {

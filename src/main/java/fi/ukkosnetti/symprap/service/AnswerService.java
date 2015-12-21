@@ -3,12 +3,11 @@ package fi.ukkosnetti.symprap.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import lombok.NonNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.dto.AnswerCreate;
 import fi.ukkosnetti.symprap.dto.AnswerGet;
 import fi.ukkosnetti.symprap.model.Answer;
@@ -32,7 +31,7 @@ public class AnswerService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 
 	public List<AnswerGet> getAnswersForQuestion(long questionId) {
 		Question question = questionRepository.findOne(questionId);
@@ -52,21 +51,22 @@ public class AnswerService {
 	}
 
 	public void createAnswer(AnswerCreate answer) {
-		Question question = questionRepository.findOne(answer.getQuestionId());
-		verifyAnswer(question.getAnswerType(), answer.getAnswer());
+		Question question = questionRepository.findOne(answer.questionId);
+		verifyAnswer(question.getAnswerType(), answer.answer);
 		Answer entity = new Answer();
 		entity.setQuestion(question);
-		entity.setAnswer(answer.getAnswer());
-		entity.setAnswerIsPrivate(answer.isAnswerIsPrivate());
-		setUser(userRepository.findOne(answer.getUserId()), entity);
+		entity.setAnswer(answer.answer);
+		entity.setAnswerIsPrivate(answer.answerIsPrivate);
+		setUser(userRepository.findOne(answer.userId), entity);
 		repository.save(entity);
 	}
 
-	private void setUser(@NonNull User user, Answer entity) {
+	private void setUser(User user, Answer entity) {
+		if (user == null) throw new NullPointerException("User must exist");
 		entity.setUser(user);
 	}
 
-	private void verifyAnswer(@NonNull AnswerType answerType, @NonNull String answer) {
+	private void verifyAnswer(AnswerType answerType, String answer) {
 		switch (answerType) {
 		case BOOLEAN:
 			if (!(answer.equalsIgnoreCase(Boolean.FALSE.toString()) || answer.equalsIgnoreCase(Boolean.TRUE.toString()))) {

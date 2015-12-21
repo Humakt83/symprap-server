@@ -1,14 +1,10 @@
 package fi.ukkosnetti.symprap.dto;
 
-import lombok.Getter;
-import lombok.ToString;
 import fi.ukkosnetti.symprap.model.AnswerType;
 
-@ToString
 public class QuestionUpdate extends QuestionCreate {
 
-	@Getter
-	private final Long id;
+	public final Long id;
 
 	public QuestionUpdate(String question, AnswerType answerType, Long diseaseId, Long id) {
 		super(question, answerType, diseaseId);

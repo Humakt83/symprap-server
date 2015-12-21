@@ -67,7 +67,7 @@ public class QuestionControllerTest {
 		return given().contentType(MediaType.APPLICATION_JSON)
 			.body(new DiseaseCreate("flu"))
 			.post("/disease/create")
-			.then().extract().as(DiseaseGet.class).getId();
+			.then().extract().as(DiseaseGet.class).id;
 	}
 	
 }

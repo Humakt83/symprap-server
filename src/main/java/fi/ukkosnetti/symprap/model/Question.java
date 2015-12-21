@@ -3,6 +3,7 @@ package fi.ukkosnetti.symprap.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,48 +14,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@ToString 
-@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Question {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Getter
 	private Long id;
 	
-	@Getter
-	@Setter
 	private String question;
 	
 	@Enumerated(EnumType.STRING)
-	@Getter
-	@Setter
 	private AnswerType answerType;
 	
-	@Getter
 	private Date created;
 	
-	@Getter
 	private Date updated;	
 	
 	@ManyToOne
-	@Getter
-	@Setter
 	private Disease disease;
 	
-	@ManyToOne
-	@Getter
-	@Setter
+	@ElementCollection
 	private Set<String> selectableAnswers;
 	
 	@PrePersist
@@ -70,6 +53,50 @@ public class Question {
 	@JsonProperty("diseaseId")
 	public Long getDiseaseId() {
 		return disease != null ? disease.getId() : null;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public String getQuestion() {
+		return question;
+	}
+	
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
+	public AnswerType getAnswerType() {
+		return answerType;
+	}
+	
+	public void setAnswerType(AnswerType answerType) {
+		this.answerType = answerType;
+	}
+	
+	public Date getCreated() {
+		return created;
+	}
+	
+	public Date getUpdated() {
+		return updated;
+	}
+	
+	public Disease getDisease() {
+		return disease;
+	}
+	
+	public void setDisease(Disease disease) {
+		this.disease = disease;
+	}
+	
+	public Set<String> getSelectableAnswers() {
+		return selectableAnswers;
+	}
+	
+	public void setSelectableAnswers(Set<String> selectableAnswers) {
+		this.selectableAnswers = selectableAnswers;
 	}
 	
 }

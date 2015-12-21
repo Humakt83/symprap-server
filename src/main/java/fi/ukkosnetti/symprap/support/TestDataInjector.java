@@ -44,7 +44,7 @@ public class TestDataInjector {
 		final DiseaseGet disease = injectDisease();
 		final UserGet user = injectUser(disease);
 		injectFollower(user);
-		injectQuestions(disease.getId());
+		injectQuestions(disease.id);
 	}
 
 	private void injectQuestions(Long diseaseId) {
@@ -75,6 +75,6 @@ public class TestDataInjector {
 		final String username = "follower"; 
 		userService.createUser(new UserCreate(username, "test", "First", "Last", null, 1234541l, 
 				Arrays.asList(UserRole.FOLLOWER), null));
-		userService.addFollower(user.getUserName(), username);
+		userService.addFollower(user.userName, username);
 	}
 }

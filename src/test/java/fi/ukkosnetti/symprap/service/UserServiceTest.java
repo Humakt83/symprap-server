@@ -17,7 +17,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.model.User;
@@ -28,7 +29,7 @@ import fi.ukkosnetti.symprap.repository.UserRepository;
 public class UserServiceTest {
 
 	@Mock
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 	
 	@Mock
 	private UserRepository repo;

@@ -86,6 +86,6 @@ public class AnswerControllerTest {
 		.then()
 		.extract()
 		.as(UserGet.class)
-		.getId();
+		.id;
 	}
 }

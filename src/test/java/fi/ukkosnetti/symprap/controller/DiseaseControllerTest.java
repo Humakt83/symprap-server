@@ -46,11 +46,11 @@ public class DiseaseControllerTest {
 	
 	@Test
 	public void returnsDisease() throws Exception {
-		Long id = insertDisease(DISEASE).extract().as(DiseaseGet.class).getId();
+		Long id = insertDisease(DISEASE).extract().as(DiseaseGet.class).id;
 		DiseaseGet disease = given().contentType(MediaType.APPLICATION_JSON)
 			.get("/disease/" + id).then().extract().as(DiseaseGet.class);
-		assertEquals(id, disease.getId());
-		assertEquals(DISEASE, disease.getDisease());
+		assertEquals(id, disease.id);
+		assertEquals(DISEASE, disease.disease);
 	}
 	
 	private ValidatableResponse insertDisease(String disease) {

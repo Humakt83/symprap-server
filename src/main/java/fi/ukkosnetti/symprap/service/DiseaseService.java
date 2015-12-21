@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
 import fi.ukkosnetti.symprap.dto.DiseaseUpdate;
@@ -20,7 +21,7 @@ public class DiseaseService {
 	private DiseaseRepository repository;
 	
 	@Autowired
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 
 	public DiseaseGet getDisease(Long id) {
 		return mapper.convertValue(repository.findOne(id), DiseaseGet.class);

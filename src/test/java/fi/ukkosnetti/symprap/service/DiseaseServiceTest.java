@@ -12,7 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.dto.DiseaseCreate;
 import fi.ukkosnetti.symprap.dto.DiseaseGet;
 import fi.ukkosnetti.symprap.model.Disease;
@@ -25,7 +26,7 @@ public class DiseaseServiceTest {
 	private DiseaseRepository repo;
 	
 	@Mock
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 	
 	@InjectMocks
 	private DiseaseService service;
@@ -37,7 +38,7 @@ public class DiseaseServiceTest {
 		when(repo.findOne(id)).thenReturn(new Disease());
 		DiseaseGet disease = service.getDisease(id);
 		assertNotNull(disease);
-		assertEquals(id, disease.getId());
+		assertEquals(id, disease.id);
 	}
 	
 	@Test

@@ -1,20 +1,30 @@
 package fi.ukkosnetti.symprap.dto;
 
-import lombok.Data;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import fi.ukkosnetti.symprap.model.AnswerType;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public @Data class QuestionGet {
+public class QuestionGet {
 	
-	private final Long id;
+	public final Long id;
 	
-	private final String question;
+	public final String question;
 	
-	private final AnswerType answerType;
+	public final AnswerType answerType;
 	
-	private final Long diseaseId;
+	public final Long diseaseId;
+
+	public QuestionGet(Long id, String question, AnswerType answerType, Long diseaseId) {
+		this.id = id;
+		this.question = question;
+		this.answerType = answerType;
+		this.diseaseId = diseaseId;
+	}
+	
+	@SuppressWarnings("unused")
+	private QuestionGet() {
+		this(null, null, null, null);
+	}
 
 }

@@ -10,13 +10,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fi.ukkosnetti.symprap.auth.SymprapUserDetails;
-import fi.ukkosnetti.symprap.conversion.LombokMapper;
 import fi.ukkosnetti.symprap.dto.UserCreate;
 import fi.ukkosnetti.symprap.dto.UserGet;
 import fi.ukkosnetti.symprap.dto.UserUpdate;
 import fi.ukkosnetti.symprap.model.User;
-import fi.ukkosnetti.symprap.repository.DiseaseRepository;
 import fi.ukkosnetti.symprap.repository.UserRepository;
 
 @Service
@@ -26,10 +26,7 @@ public class UserService implements UserDetailsService {
 	private UserRepository repository;
 	
 	@Autowired
-	private DiseaseRepository diseaseRepository;
-	
-	@Autowired
-	private LombokMapper mapper;
+	private ObjectMapper mapper;
 	
 	public UserGet createUser(UserCreate user) {
 		User entity = mapper.convertValue(user, User.class);
@@ -93,7 +90,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	private String hashAndSaltPass(UserCreate user) {
-		return BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+		return BCrypt.hashpw(user.password, BCrypt.gensalt());
 	}
 	
 }
